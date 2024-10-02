@@ -1,0 +1,19 @@
+name: Run apreload on NGINX Ingress Controllers
+run-name: Triggered by ${{ github.actor }} 🚀
+on: workflow_dispatch
+jobs:
+  Reload-App-Protect:
+    runs-on: self-hosted
+    steps:
+      - run: cat ${{ github.workspace }}/examples/nic.env >> $GITHUB_ENV
+      - run: |
+          NIC_PODS=$(kubectl -n $NIC_NAMESPACE get pods -l $NIC_LABEL_SELECTOR -o jsonpath='{.items[*].metadata.name}')
+          echo "Found pod $NIC_PODS"
+          echo "ALL_NIC_PODS=$NIC_PODS" >> "$GITHUB_ENV"
+          echo "NIC_POD=$(echo $NIC_PODS | cut -d' ' -f1)" >> "$GITHUB_ENV"
+      - run: echo "Reloading App Protect..."
+      - run: |
+          for pod in $ALL_NIC_PODS; do \
+            echo "Running command on $pod"; \
+            kubectl -n $NIC_NAMESPACE exec $pod -- /opt/app_protect/bin/apreload; \
+          done

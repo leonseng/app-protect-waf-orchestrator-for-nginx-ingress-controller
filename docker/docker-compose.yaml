@@ -1,0 +1,18 @@
+services:
+  waf-compiler-auto:
+    image: $AP_WAF_COMPILER_IMAGE_NAME
+    build:
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
+      context: ./
+      args:
+        AP_WAF_COMPILER_BASE_IMAGE: $AP_WAF_COMPILER_BASE_IMAGE
+      secrets:
+        - nginx-crt
+        - nginx-key
+secrets:
+  nginx-crt:
+    file: $NGINX_REPO_CERT
+  nginx-key:
+    file: $NGINX_REPO_KEY

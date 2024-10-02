@@ -1,0 +1,24 @@
+{
+  "policy": {
+    "name": "httpbin",
+    "template": {
+      "name": "POLICY_TEMPLATE_NGINX_BASE"
+    },
+    "caseInsensitive": false,
+    "enforcementMode": "blocking",
+    "signature-sets": [
+      {
+        "alarm": true,
+        "block": true,
+        "name": "Cross Site Scripting Signatures"
+      }
+    ]
+  },
+  "parameters": [
+    {
+      "name": "*",
+      "type": "wildcard",
+      "decodeValueAsBase64": "enabled"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "policy": {
+    "name": "base",
+    "template": {
+      "name": "POLICY_TEMPLATE_NGINX_BASE"
+    },
+    "caseInsensitive": false,
+    "enforcementMode": "blocking"
+  }
+}

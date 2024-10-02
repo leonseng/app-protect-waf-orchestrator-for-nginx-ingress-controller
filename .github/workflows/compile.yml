@@ -1,0 +1,34 @@
+name: Compile NGINX App Protect Policies
+run-name: Triggered by ${{ github.actor }} 🚀
+on:
+  - push
+  - workflow_dispatch
+jobs:
+  Compile-App-Protect-Policies:
+    runs-on: self-hosted
+    steps:
+      - name: Cleanup build folder
+        run: |
+          rm -rf ./* || true
+          rm -rf ./.??* || true
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - run: echo "Compiling App Protect policies..."
+      - run: |
+          mkdir -p .compiled/ap
+          for file in ${{ github.workspace }}/examples/policies/app_protect/*; do \
+            file_basename=$(basename $file .json); \
+            /opt/app_protect/bin/apcompile -include-source -full-export \
+              -g ${{ github.workspace }}/examples/policies/global_settings.json \
+              -p ${{ github.workspace }}/examples/policies/app_protect/$file_basename.json \
+              -o /etc/app_protect/bundles/ap/$file_basename.tgz; \
+          done
+      - run: echo "Compiling log policies..."
+      - run: |
+          mkdir -p .compiled/log
+          for file in ${{ github.workspace }}/examples/policies/log/*; do \
+            file_basename=$(basename $file .json); \
+            /opt/app_protect/bin/apcompile \
+              -l ${{ github.workspace }}/examples/policies/log/$file_basename.json \
+              -o /etc/app_protect/bundles/log/$file_basename.tgz; \
+          done
