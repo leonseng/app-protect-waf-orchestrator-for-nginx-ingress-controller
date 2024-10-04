@@ -1,10 +1,10 @@
-# App Protect WAF Compiler For NGINX Ingress Controller
+# App Protect WAF Orchestrator For NGINX Ingress Controller
 
-NGINX App Protect WAF 5 introduces an architectural change which decouples WAF policy management from NGINX Ingress Controller operations. This repository showcases an implementation of how the App Protect WAF policies can be managed using a policy-as-code approach and a continous deployment (CD) pipeline.
+NGINX App Protect WAF 5 introduces an architectural change which decouples WAF policy management from NGINX Ingress Controller operations. This repository showcases an implementation of how the App Protect WAF policies can be managed using a policy-as-code approach and continous deployment (CD) pipelines.
 
 ## How it works
 
-![](docs/arch.png)
+![Workflow](docs/arch.png)
 
 An orchestrator pod is deployed in the Kubernetes cluster where NGINX Ingress Controller lives, mounting the same Persistent Volume that NGINX Ingress Controller uses to access App Protect policy bundles (in `/etc/app_protect/bundles`). The orchestrator performs the following:
 - monitors a GitHub repository for changes to App Protect policies using GitHub Actions
