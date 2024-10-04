@@ -13,8 +13,10 @@ An orchestrator pod is deployed in the Kubernetes cluster where NGINX Ingress Co
 
 ## Repository Structure
 Included in this repository are
-- a [Docker build](docker/) to create a orchestrator image
-    The image uses the waf-compiler as a base, with GitHub Action runner deployed on top
+- a [Docker build](docker/) to create an orchestrator image
+
+    It uses the [NGINX App Protect WAF Compiler](https://docs.nginx.com/nginx-app-protect-waf/v5/admin-guide/compiler/) image as a base, with GitHub Action runner deployed on top
+    > Paid subscription to [NGINX App Protect](https://www.f5.com/products/nginx/nginx-app-protect) required in order to access the image from a private registry. Alternatively, a 30-day trial is available [here](https://www.f5.com/trials/free-trial-nginx-plus-and-nginx-app-protect)
 - a [Helm chart](helm/app-protect-waf-orchestrator/) to deploy said image into a Kubernetes where NGINX Ingress Controller is running
 - an example showcasing [App Protect policies stored in a repository](examples/), along with [GitHub Action workflows](.github/workflows/) to process the policies
 
