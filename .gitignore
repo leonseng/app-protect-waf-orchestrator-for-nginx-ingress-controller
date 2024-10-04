@@ -1,3 +1,4 @@
+.DS_Store
 .env
 .k8s/
 /values.yaml
