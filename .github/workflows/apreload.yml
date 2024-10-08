@@ -1,8 +1,13 @@
 name: Run apreload on NGINX Ingress Controllers
 run-name: Triggered by ${{ github.actor }} 🚀
-on: workflow_dispatch
+on:
+  workflow_run:
+    workflows: ["Compile NGINX App Protect Policies"]
+    types:
+      - completed
 jobs:
   Reload-App-Protect:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: self-hosted
     steps:
       - run: cat ${{ github.workspace }}/examples/nic.env >> $GITHUB_ENV
