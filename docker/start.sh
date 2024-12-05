@@ -9,6 +9,7 @@ REG_TOKEN=$(curl -X POST -H "Authorization: token ${GITHUB_PERSONAL_ACCESS_TOKEN
   --url $GITHUB_REPO_URL \
   --token $REG_TOKEN \
   --unattended \
-  --disableupdate
+  --disableupdate \
+  --replace
 
 ./run.sh
